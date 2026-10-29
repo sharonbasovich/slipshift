@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080f1a">
+  <meta name="description" content="SLIPSHIFT: a 60-second one-thumb speed game. Hold to push your luck. Release to bank it.">
+  <title>SLIPSHIFT — Hold your nerve.</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="core.js" defer></script><script src="game.js" defer></script>
+</head>
+<body>
+<main id="game" aria-label="SLIPSHIFT speed game">
+  <header class="masthead"><div class="wordmark">SLIP<span>SHIFT</span><small>THE 60-SECOND REDLINE</small></div><div class="tools"><button id="sound" class="icon-button" aria-label="Turn sound on" aria-pressed="false">♪<span id="soundState">OFF</span></button><button id="pause" class="icon-button" aria-label="Pause game" disabled>Ⅱ</button></div></header>
+  <section class="dashboard" aria-label="Race information">
+    <div class="score"><span class="eyebrow">BANKED</span><strong id="score">0</strong></div>
+    <div class="clock"><span class="eyebrow">TIME LEFT</span><strong id="time">60<span>.0</span></strong></div>
+    <div class="hull"><span class="eyebrow">HULL</span><div id="hull" aria-label="3 hull remaining"><i></i><i></i><i></i></div></div>
+  </section>
+  <section id="track" aria-label="Race track. Hold and drag horizontally to accelerate and steer.">
+    <canvas id="canvas" aria-label="Three-lane race track with orange traffic drones and your cyan ship. Use left and right arrows to steer, hold Space to accelerate, and release Space to bank points."></canvas>
+    <div class="track-top"><span id="sector">SECTOR 01 / NIGHTFALL</span><span id="speed">086 <small>KM/H</small></span></div>
+    <div id="toast" class="toast" aria-hidden="true"></div>
+    <div id="carry" class="carry"><span>AT RISK</span><strong>+<b id="charge">0</b></strong><em id="multiplier">×1</em></div>
+    <div id="hint" class="track-hint">FOLLOW THE OPEN LANE</div>
+    <div id="overlay" class="overlay">
+      <section id="intro" class="panel">
+        <div class="kicker"><span></span> 60 SECONDS. NO SECOND GUESSES.</div>
+        <h1>HOLD<br>YOUR <em>NERVE.</em></h1>
+        <p class="lead">Speed is money.<br>Only what you bank is yours.</p>
+        <div class="lessons"><p><b>01</b><span><strong>HOLD + DRAG</strong>Accelerate. Slide into open lanes.</span></p><p><b>02</b><span><strong>RELEASE TO BANK</strong>Save your points. Cool your engine.</span></p><p><b>03</b><span><strong>PASS CLOSE. GO BIG.</strong>Fast close passes multiply your streak.</span></p></div>
+        <button id="start" class="primary">LET IT RIP <span>↗</span></button>
+        <p class="keyboard">KEYBOARD: ← → STEER · HOLD SPACE TO GO</p>
+        <div class="menu-bottom"><span>BEST <b id="best">0</b></span><label><input id="motion" type="checkbox"> CALM FX</label></div>
+      </section>
+      <section id="paused" class="panel compact" hidden><div class="kicker">ENGINE IDLING</div><h2>TAKE A<br><em>BREATHER.</em></h2><p class="lead">Your run is safe right here.</p><button id="resume" class="primary">BACK TO IT <span>↗</span></button><button id="quit" class="secondary">END THIS RUN</button><label class="calm-toggle"><input id="pauseMotion" type="checkbox"> Calm effects</label><p class="keyboard">ESC / P TO RESUME</p></section>
+      <section id="results" class="panel compact" hidden><div id="resultKicker" class="kicker">RUN COMPLETE</div><h2 id="resultTitle">NERVE<br><em>OF STEEL.</em></h2><div class="result-score"><span>BANKED SCORE</span><strong id="resultScore">0</strong><small id="record"></small></div><div class="result-stats"><div><b id="resultPasses">0</b><span>CLOSE PASSES</span></div><div><b id="resultCombo">×1</b><span>BEST STREAK</span></div><div><b id="resultSpeed">0</b><span>TOP KM/H</span></div></div><p id="resultTip" class="result-tip"></p><button id="restart" class="primary">ONE MORE RUN <span>↗</span></button><button id="menu" class="secondary">HOW TO PLAY</button></section>
+    </div>
+  </section>
+  <section class="engine" aria-label="Engine controls">
+    <div class="heat-heading"><span id="heatLabel">ENGINE HEAT</span><span id="heatValue">0%</span></div>
+    <div id="heatMeter" class="heat-meter" role="meter" aria-label="Engine heat" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="heatFill"></div><i></i></div>
+    <div class="drive-controls"><button id="left" class="steer" aria-label="Steer left" disabled>‹</button><button id="throttle" aria-label="Hold to accelerate. Release to bank and cool." disabled><span id="throttleLabel">HOLD TO ACCELERATE</span><small id="throttleSub">RELEASE = BANK + COOL</small></button><button id="right" class="steer" aria-label="Steer right" disabled>›</button></div>
+  </section>
+  <div id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</main>
+</body></html>
