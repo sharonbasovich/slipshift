@@ -80,7 +80,7 @@
     $('resultKicker').textContent = reason === 'finish' ? '60 SECONDS. YOU MADE THEM COUNT.' : reason === 'quit' ? 'RUN ENDED' : 'HULL LOST. BANKED POINTS KEPT.';
     $('resultTitle').innerHTML = reason === 'finish' ? 'NERVE<br><em>OF STEEL.</em>' : 'FAST.<br><em>NOT LUCKY.</em>';
     $('resultScore').textContent = state.score.toLocaleString();
-    $('record').textContent = record ? 'NEW PERSONAL BEST ↗' : 'PERSONAL BEST  ' + best.toLocaleString();
+    $('record').textContent = record ? 'NEW PERSONAL BEST!' : 'PERSONAL BEST  ' + best.toLocaleString();
     $('resultPasses').textContent = state.passes; $('resultCombo').textContent = '×' + state.maxMultiplier;
     $('resultSpeed').textContent = Math.round(60 + state.maxSpeed * 240);
     $('resultTip').textContent = reason === 'hull' ? 'Look ahead for the open lane. Release before a tight gap: slower is safer, and banked points stay yours.' : state.passes < 4 ? 'Next run: pass beside traffic above 210 km/h to build your multiplier. Release before the heat bar fills.' : 'The trick isn’t staying fast. It’s knowing exactly when to let go.';
