@@ -104,6 +104,13 @@ class BrowserChecks(unittest.TestCase):
         self.assertEqual(self.page.locator('#sound').get_attribute('aria-pressed'),'false')
         self.page.locator('#pause').focus();self.page.keyboard.press('Space')
         self.assertTrue(self.page.locator('#paused').is_visible())
+    def test_11_short_landscape_remains_operable(self):
+        self.page.set_viewport_size({'width':844,'height':390});self.page.clock.run_for(100)
+        self.page.locator('#start').scroll_into_view_if_needed();self.start()
+        for id in ['throttle','pause','left','right']:
+            b=self.page.locator('#'+id).bounding_box();self.assertGreaterEqual(b['y'],0);self.assertLessEqual(b['y']+b['height'],390)
+        self.page.locator('#pause').click();self.page.locator('#resume').click()
+        self.page.clock.run_for(100);self.assertIn('playing',self.page.locator('#game').get_attribute('class'))
     def test_09_offline_file_entrypoint(self):
         # The same runtime has no fetch or module/CORS requirement.
         filepage=self.context.new_page();filepage.goto((ROOT/'dist/index.html').as_uri())

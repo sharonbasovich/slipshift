@@ -8,3 +8,7 @@
 canvas:focus{outline:none}canvas:focus-visible{outline:1px solid #385b61;outline-offset:-2px}
 @media(max-height:740px){.lessons p>span,.lessons strong{font-size:10px}.keyboard{font-size:7px}}
 @media(max-height:600px){.lessons p>span,.lessons strong{font-size:10px}.lessons p>b{height:28px}.keyboard{font-size:7px}}
+/* Code-drawn icons stay crisp even on systems without symbol glyphs. */
+.pause-symbol{width:10px;height:12px;border-left:3px solid currentColor;border-right:3px solid currentColor}
+.primary .arrow-symbol{display:block;width:12px;height:12px;border-top:2px solid currentColor;border-right:2px solid currentColor;position:relative}
+.primary .arrow-symbol:before{content:"";position:absolute;width:16px;height:2px;background:currentColor;transform:rotate(-45deg);left:-4px;top:4px}

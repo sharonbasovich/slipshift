@@ -6,6 +6,8 @@ An original portrait HTML5 speed game built for Slapjam #2 (theme: **Speed**), b
 
 ## Play
 
+[Free playable preview](https://sharonbasovich.github.io/slipshift/) — this preview is not an itch.io jam submission.
+
 Survive a 60-second sprint and bank the largest score you can.
 
 - **Touch / mouse:** hold the track or accelerator and drag sideways to steer. Let go to save your points and cool down. Optional left/right buttons also steer.
