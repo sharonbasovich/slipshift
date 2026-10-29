@@ -2,3 +2,9 @@
 /* Short embedded viewports remain operable rather than clipping the menu. */
 .overlay{overflow-y:auto;align-items:flex-start}.panel{margin:auto 0;flex-shrink:0}
 @media(max-height:600px){#intro .lead{display:none}.lessons{margin-top:13px}}
+@media(max-height:480px){#game{min-height:100dvh}#track{min-height:120px}}
+/* Legible teaching copy, including small portrait phones. */
+.lessons p>span{font-size:11px}.lessons strong{font-size:11px}
+canvas:focus{outline:none}canvas:focus-visible{outline:1px solid #385b61;outline-offset:-2px}
+@media(max-height:740px){.lessons p>span,.lessons strong{font-size:10px}.keyboard{font-size:7px}}
+@media(max-height:600px){.lessons p>span,.lessons strong{font-size:10px}.lessons p>b{height:28px}.keyboard{font-size:7px}}

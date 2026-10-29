@@ -37,7 +37,7 @@ class BrowserChecks(unittest.TestCase):
         self.page.locator('#start').click(); self.page.clock.run_for(100)
     def value(self,key):return self.page.evaluate('(key)=>window.__observed[key]',key)
     def test_01_portrait_and_desktop_layout(self):
-        for w,h in [(320,568),(360,640),(390,844),(720,1280),(1080,1920),(1280,800)]:
+        for w,h in [(320,568),(360,640),(390,844),(720,1280),(1080,1920),(1280,800),(844,390)]:
             self.page.set_viewport_size({'width':w,'height':h});self.page.clock.run_for(100)
             bounds=self.page.locator('#start').bounding_box()
             self.assertGreaterEqual(bounds['y'],0)
@@ -52,6 +52,7 @@ class BrowserChecks(unittest.TestCase):
         self.page.screenshot(path=str(OUT/'gameplay-390x844.png'))
         self.page.keyboard.up('Space');self.page.clock.run_for(300)
         self.assertGreater(self.value('score'),80);self.assertEqual(self.value('charge'),0)
+        self.page.clock.run_for(800);self.page.screenshot(path=str(OUT/'traffic-390x844.png'))
         self.page.keyboard.down('p');self.page.keyboard.down('p')
         self.assertTrue(self.page.locator('#paused').is_visible())
         before=self.value('time');self.page.clock.run_for(3000);self.assertEqual(self.value('time'),before)
@@ -98,6 +99,11 @@ class BrowserChecks(unittest.TestCase):
         self.assertEqual(self.page.locator('#announcer').get_attribute('aria-live'),'polite')
         self.start();self.page.keyboard.down('Space');self.page.clock.run_for(1000);self.page.keyboard.up('Space')
         self.assertGreater(int(self.page.locator('#heatMeter').get_attribute('aria-valuenow')),0)
+    def test_10_native_keyboard_buttons(self):
+        self.start();self.page.locator('#sound').focus();self.page.keyboard.press('Space')
+        self.assertEqual(self.page.locator('#sound').get_attribute('aria-pressed'),'false')
+        self.page.locator('#pause').focus();self.page.keyboard.press('Space')
+        self.assertTrue(self.page.locator('#paused').is_visible())
     def test_09_offline_file_entrypoint(self):
         # The same runtime has no fetch or module/CORS requirement.
         filepage=self.context.new_page();filepage.goto((ROOT/'dist/index.html').as_uri())

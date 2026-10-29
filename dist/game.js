@@ -182,8 +182,9 @@
     if(!e.repeat){if(e.code==='ArrowLeft'||e.code==='KeyA')input.lane=Math.max(0,input.lane-1);if(e.code==='ArrowRight'||e.code==='KeyD')input.lane=Math.min(2,input.lane+1);}
     if(e.code==='Space'||e.code==='ArrowUp'){keys.add(e.code);input.throttle=true;audio.init();}
   });
-  document.addEventListener('keyup',e=>{keys.delete(e.code);if(e.code==='Space'||e.code==='ArrowUp'){input.throttle=pointer!==null||keys.has('Space')||keys.has('ArrowUp');if(state.mode==='running')e.preventDefault();}});
+  document.addEventListener('keyup',e=>{keys.delete(e.code);if(e.code==='Space'||e.code==='ArrowUp'){input.throttle=pointer!==null||keys.has('Space')||keys.has('ArrowUp');if(state.mode==='running' && !(e.code==='Space' && e.target && /^(BUTTON|INPUT)$/.test(e.target.tagName) && e.target.id!=='throttle'))e.preventDefault();}});
   window.addEventListener('blur',()=>pauseRun('Window lost focus'));
+  window.addEventListener('orientationchange',()=>pauseRun('Screen rotated'));
   document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseRun('Tab hidden');});
   $('start').addEventListener('click',startRun);$('restart').addEventListener('click',startRun);
   $('pause').addEventListener('click',()=>pauseRun());$('resume').addEventListener('click',resumeRun);
