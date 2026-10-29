@@ -11,7 +11,7 @@
 </head>
 <body>
 <main id="game" aria-label="SLIPSHIFT speed game">
-  <header class="masthead"><div class="wordmark">SLIP<span>SHIFT</span><small>THE 60-SECOND REDLINE</small></div><div class="tools"><button id="sound" class="icon-button" aria-label="Turn sound on" aria-pressed="false">♪<span id="soundState">OFF</span></button><button id="pause" class="icon-button" aria-label="Pause game" disabled>Ⅱ</button></div></header>
+  <header class="masthead"><div class="wordmark">SLIP<span>SHIFT</span><small>THE 60-SECOND REDLINE</small></div><div class="tools"><button id="sound" class="icon-button" aria-label="Turn sound on" aria-pressed="false">♪<span id="soundState">OFF</span></button><button id="pause" class="icon-button" aria-label="Pause game" disabled><span class="pause-symbol" aria-hidden="true"></span></button></div></header>
   <section class="dashboard" aria-label="Race information">
     <div class="score"><span class="eyebrow">BANKED</span><strong id="score">0</strong></div>
     <div class="clock"><span class="eyebrow">TIME LEFT</span><strong id="time">60<span>.0</span></strong></div>
@@ -29,12 +29,12 @@
         <h1>HOLD<br>YOUR <em>NERVE.</em></h1>
         <p class="lead">Speed is money.<br>Only what you bank is yours.</p>
         <div class="lessons"><p><b>01</b><span><strong>HOLD + DRAG</strong>Accelerate. Slide into open lanes.</span></p><p><b>02</b><span><strong>RELEASE TO BANK</strong>Save your points. Cool your engine.</span></p><p><b>03</b><span><strong>PASS CLOSE. GO BIG.</strong>Fast close passes multiply your streak.</span></p></div>
-        <button id="start" class="primary">LET IT RIP <span>↗</span></button>
+        <button id="start" class="primary">LET IT RIP <span class="arrow-symbol" aria-hidden="true"></span></button>
         <p class="keyboard">KEYBOARD: ← → STEER · HOLD SPACE TO GO</p>
         <div class="menu-bottom"><span>BEST <b id="best">0</b></span><label><input id="motion" type="checkbox"> CALM FX</label></div>
       </section>
-      <section id="paused" class="panel compact" hidden><div class="kicker">ENGINE IDLING</div><h2>TAKE A<br><em>BREATHER.</em></h2><p class="lead">Your run is safe right here.</p><button id="resume" class="primary">BACK TO IT <span>↗</span></button><button id="quit" class="secondary">END THIS RUN</button><label class="calm-toggle"><input id="pauseMotion" type="checkbox"> Calm effects</label><p class="keyboard">ESC / P TO RESUME</p></section>
-      <section id="results" class="panel compact" hidden><div id="resultKicker" class="kicker">RUN COMPLETE</div><h2 id="resultTitle">NERVE<br><em>OF STEEL.</em></h2><div class="result-score"><span>BANKED SCORE</span><strong id="resultScore">0</strong><small id="record"></small></div><div class="result-stats"><div><b id="resultPasses">0</b><span>CLOSE PASSES</span></div><div><b id="resultCombo">×1</b><span>BEST STREAK</span></div><div><b id="resultSpeed">0</b><span>TOP KM/H</span></div></div><p id="resultTip" class="result-tip"></p><button id="restart" class="primary">ONE MORE RUN <span>↗</span></button><button id="menu" class="secondary">HOW TO PLAY</button></section>
+      <section id="paused" class="panel compact" hidden><div class="kicker">ENGINE IDLING</div><h2>TAKE A<br><em>BREATHER.</em></h2><p class="lead">Your run is safe right here.</p><button id="resume" class="primary">BACK TO IT <span class="arrow-symbol" aria-hidden="true"></span></button><button id="quit" class="secondary">END THIS RUN</button><label class="calm-toggle"><input id="pauseMotion" type="checkbox"> Calm effects</label><p class="keyboard">ESC / P TO RESUME</p></section>
+      <section id="results" class="panel compact" hidden><div id="resultKicker" class="kicker">RUN COMPLETE</div><h2 id="resultTitle">NERVE<br><em>OF STEEL.</em></h2><div class="result-score"><span>BANKED SCORE</span><strong id="resultScore">0</strong><small id="record"></small></div><div class="result-stats"><div><b id="resultPasses">0</b><span>CLOSE PASSES</span></div><div><b id="resultCombo">×1</b><span>BEST STREAK</span></div><div><b id="resultSpeed">0</b><span>TOP KM/H</span></div></div><p id="resultTip" class="result-tip"></p><button id="restart" class="primary">ONE MORE RUN <span class="arrow-symbol" aria-hidden="true"></span></button><button id="menu" class="secondary">HOW TO PLAY</button></section>
     </div>
   </section>
   <section class="engine" aria-label="Engine controls">
