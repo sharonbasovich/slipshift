@@ -128,8 +128,12 @@ class BrowserChecks(unittest.TestCase):
           AudioContext.prototype.createGain=function(){const gain=create.call(this);window.__gains.push(gain);return gain;};}""")
         self.start();self.page.keyboard.down('Space');self.page.clock.run_for(1000);self.page.keyboard.up('Space');self.page.clock.run_for(200)
         self.assertGreaterEqual(self.page.evaluate('window.__gains.length'),4)
-        self.page.locator('#sound').click();self.assertEqual(self.page.evaluate('window.__gains[0].gain.value'),0)
-        self.page.locator('#sound').click();self.assertAlmostEqual(self.page.evaluate('window.__gains[0].gain.value'),.32,places=6)
+        # Web Audio applies scheduled values on its real render thread, outside the mocked game clock.
+        self.page.locator('#sound').click();self.page.wait_for_timeout(100)
+        self.assertEqual(self.page.locator('#sound').get_attribute('aria-pressed'),'false')
+        self.assertEqual(self.page.evaluate('window.__gains[0].gain.value'),0)
+        self.page.locator('#sound').click();self.page.wait_for_timeout(100)
+        self.assertAlmostEqual(self.page.evaluate('window.__gains[0].gain.value'),.32,places=6)
     def test_09_offline_file_entrypoint(self):
         # The same runtime has no fetch or module/CORS requirement.
         filepage=self.context.new_page();filepage.goto((ROOT/'dist/index.html').as_uri())
