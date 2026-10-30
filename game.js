@@ -47,8 +47,10 @@
     $('soundState').textContent = soundEnabled ? 'ON' : 'OFF';
     storage.set('slipshift-sound-v1', soundEnabled ? '1' : '0');
     if (soundEnabled) audio.init(); else audio.silence();
+    // All effect oscillators share this bus, including tones already scheduled.
+    if (audio.master) audio.master.gain.setValueAtTime(soundEnabled ? .32 : 0, audio.context.currentTime);
   }
-  function setCalm(value) {calm = value; $('motion').checked = value; $('pauseMotion').checked = value; $('game').classList.toggle('calm', value); storage.set('slipshift-calm-v1', value ? '1' : '0');}
+  function setCalm(value) {calm = value; if (calm) {particles = []; shake = 0;} $('motion').checked = value; $('pauseMotion').checked = value; $('game').classList.toggle('calm', value); storage.set('slipshift-calm-v1', value ? '1' : '0');}
   function announce(text) {$('announcer').textContent = text;}
   function showPanel(name) {
     $('game').classList.toggle('playing', name === null);
