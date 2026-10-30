@@ -111,6 +111,25 @@ class BrowserChecks(unittest.TestCase):
             b=self.page.locator('#'+id).bounding_box();self.assertGreaterEqual(b['y'],0);self.assertLessEqual(b['y']+b['height'],390)
         self.page.locator('#pause').click();self.page.locator('#resume').click()
         self.page.clock.run_for(100);self.assertIn('playing',self.page.locator('#game').get_attribute('class'))
+    def test_12_calm_clears_inflight_particles(self):
+        self.page.evaluate("""() => {window.__particleDraws=0; const fill=CanvasRenderingContext2D.prototype.fillRect;
+          CanvasRenderingContext2D.prototype.fillRect=function(...args){if(this.fillStyle==='#74f5d1')window.__particleDraws++; return fill.apply(this,args);};}""")
+        self.start();self.page.keyboard.down('Space');self.page.clock.run_for(1000);self.page.keyboard.up('Space');self.page.clock.run_for(200)
+        self.assertGreater(self.page.evaluate('window.__particleDraws'),0)
+        self.page.locator('#pause').click();self.page.evaluate('window.__particleDraws=0');self.page.clock.run_for(50)
+        self.assertGreater(self.page.evaluate('window.__particleDraws'),0,'Particles must still exist while paused')
+        self.page.locator('#pauseMotion').check()
+        self.page.evaluate('window.__particleDraws=0');self.page.clock.run_for(50)
+        self.assertEqual(self.page.evaluate('window.__particleDraws'),0)
+        self.page.locator('#pauseMotion').uncheck();self.page.clock.run_for(50)
+        self.assertEqual(self.page.evaluate('window.__particleDraws'),0)
+    def test_13_sound_off_mutes_effect_bus(self):
+        self.page.evaluate("""() => {window.__gains=[];const create=AudioContext.prototype.createGain;
+          AudioContext.prototype.createGain=function(){const gain=create.call(this);window.__gains.push(gain);return gain;};}""")
+        self.start();self.page.keyboard.down('Space');self.page.clock.run_for(1000);self.page.keyboard.up('Space');self.page.clock.run_for(200)
+        self.assertGreaterEqual(self.page.evaluate('window.__gains.length'),4)
+        self.page.locator('#sound').click();self.assertEqual(self.page.evaluate('window.__gains[0].gain.value'),0)
+        self.page.locator('#sound').click();self.assertAlmostEqual(self.page.evaluate('window.__gains[0].gain.value'),.32,places=6)
     def test_09_offline_file_entrypoint(self):
         # The same runtime has no fetch or module/CORS requirement.
         filepage=self.context.new_page();filepage.goto((ROOT/'dist/index.html').as_uri())
